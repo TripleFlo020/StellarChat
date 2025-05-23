@@ -1,7 +1,8 @@
 export type ChatbotEvent =
   | 'chat_show'
   | 'chat_started'
-  | 'chat_message'
+  | 'chat_question_input'
+  | 'chat_response_output'
   | 'chat_ended'
   | 'intent_recognized'
   | 'task_completed'
@@ -11,11 +12,14 @@ export type ChatbotEvent =
   | 'lead_scored'
   | 'ambassador_scored'; 
 
+
+
+
 export interface ChatbotPayloadMap {
   chat_show: {
     sessionId: string;
     platform: 'stellar.org' | 'developers.stellar.org';
-    triggerType: 'hover' | 'scroll' | 'auto' | 'click';
+    triggerType: 'hover' | 'scroll' | 'click';
     timestamp: string;
     entryUrl: string;
     referrer?: string;
@@ -128,4 +132,14 @@ export interface ChatbotPayloadMap {
     primaryInterestAreas: string[]; // e.g. ["smart_contracts", "security"]
     timestamp: string;
   };
+}
+
+
+
+export interface TrackingContext {
+  environment: 'production' | 'staging' | 'development';
+  platform: 'stellar.org' | 'developers.stellar.org';
+  sessionId: string;
+  userId?: string;
+  timestamp: string;
 }
